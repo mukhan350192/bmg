@@ -14,6 +14,7 @@ class UserController extends Controller
     public function takeCode(Request $request)
     {
         $phone = $request->input('phone');
+        print_r($request->all());
         $iin = $request->input('iin');
         $result['success'] = false;
         do {
