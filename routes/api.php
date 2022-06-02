@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/test',[UserController::class,'test']);
-Route::get('/takeCode',[UserController::class,'takeCode']);
-Route::get('/sendSMS',[UserController::class,'sendSMS']);
+Route::post('/test',[UserController::class,'test']);
+Route::post('/takeCode',[UserController::class,'takeCode']);
+Route::post('/sendSMS',[UserController::class,'sendSMS']);
 Route::post('/confirmSMS',[UserController::class,'confirmSMS']);
 Route::post('/secondStep',[UserController::class,'secondStep']);
 Route::post('/thirdStep',[UserController::class,'thirdStep']);

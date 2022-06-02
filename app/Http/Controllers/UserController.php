@@ -14,7 +14,6 @@ class UserController extends Controller
     public function takeCode(Request $request)
     {
         $phone = $request->input('phone');
-        print_r($request->all());
         $iin = $request->input('iin');
         $result['success'] = false;
         do {
@@ -33,6 +32,7 @@ class UserController extends Controller
             $response = $http->get($url);
             $status = $response->getStatusCode();
             $response = $response->getBody()->getContents();
+
             if ($status == 500) {
                 $result['message'] = '500';
                 break;
