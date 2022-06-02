@@ -79,6 +79,7 @@ class UserController extends Controller
                 break;
             }
             DB::commit();
+            $result['code'] = $code;
             $result['success'] = true;
         } while (false);
         return response()->json($result);
