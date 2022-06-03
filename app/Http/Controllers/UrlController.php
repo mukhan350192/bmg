@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class UrlController extends Controller
 {
-    public function getShortUrl(Request $request){
+    public function getShortUrl(Request $request)
+    {
         $leadID = $request->input('leadID');
         $main = $request->input('main');
         $period = $request->input('period');
@@ -35,7 +37,7 @@ class UrlController extends Controller
         $cardNumber = $request->input('cardNumber');
         $token = Str::random(16);
         $result['success'] = false;
-        do{
+        do {
             $s = DB::table('new_short_url')->insertGetId([
                 'token' => $token,
                 'leadID' => $leadID,
@@ -63,11 +65,14 @@ class UrlController extends Controller
                 'position' => $position,
                 'placeOfBirth' => $placeOfBirth,
                 'givenDate' => $request->input('givenDate'),
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
             $url = "https://i-credit.kz/newAggrements?token=$token&rest=false";
             $result['success'] = true;
             $result['url'] = $url;
-        }while(false);
+        } while (false);
         return response()->json($result);
     }
 }
