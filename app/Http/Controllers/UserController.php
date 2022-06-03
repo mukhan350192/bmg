@@ -32,7 +32,7 @@ class UserController extends Controller
             $response = $http->get($url);
             $status = $response->getStatusCode();
             $response = $response->getBody()->getContents();
-
+            print_r($response);
             if ($status == 500) {
                 $result['message'] = '500';
                 break;
