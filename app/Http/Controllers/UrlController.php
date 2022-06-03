@@ -147,7 +147,7 @@ class UrlController extends Controller
             }
 
 
-            $res = DB::table('newShortUrl')->select('*')
+            $res = DB::table('new_short_url')->select('*')
                 ->where('leadID', $leadID)->first();
 
             if (!$res) {
@@ -155,10 +155,10 @@ class UrlController extends Controller
                 $result['success'] = false;
                 break;
             }
-            DB::table('newShortUrl')->where('leadID',$leadID)->update(['status'=>2]);
+            DB::table('new_short_url')->where('leadID',$leadID)->update(['status'=>2]);
 
             $http = new Client(['verify' => false]);
-            $responseUrl = "https://icredit-crm.kz/api/docs/signNew.php";
+            $responseUrl = "https://ic24.almait.kz/api/docs/signNew.php";
             try {
                 $response = $http->get($responseUrl, [
 
