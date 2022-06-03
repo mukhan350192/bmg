@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UrlController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,4 @@ Route::post('/sendSMS',[UserController::class,'sendSMS']);
 Route::post('/confirmSMS',[UserController::class,'confirmSMS']);
 Route::post('/secondStep',[UserController::class,'secondStep']);
 Route::post('/thirdStep',[UserController::class,'thirdStep']);
+Route::get('/newShortUrl',[UrlController::class,'getShortUrl']);
