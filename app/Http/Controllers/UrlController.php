@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UrlController extends Controller
 {
@@ -32,7 +33,7 @@ class UrlController extends Controller
         $position = $request->input('position');
         $placeOfBirth = $request->input('placeOfBirth');
         $cardNumber = $request->input('cardNumber');
-        $token = $this->generateRandomString();
+        $token = Str::random(16);
         $result['success'] = false;
         do{
             $s = DB::table('new_short_url')->insertGetId([
