@@ -26,3 +26,5 @@ Route::post('/confirmSMS',[UserController::class,'confirmSMS']);
 Route::post('/secondStep',[UserController::class,'secondStep']);
 Route::post('/thirdStep',[UserController::class,'thirdStep']);
 Route::get('/newShortUrl',[UrlController::class,'getShortUrl']);
+Route::get('/newGetData',[UrlController::class,'newGetData']);
+Route::get('/agreementNew',[UrlController::class,'agreementNew']);
