@@ -32,8 +32,7 @@ class UserController extends Controller
             $response = $http->get($url);
             $status = $response->getStatusCode();
             $response = $response->getBody()->getContents();
-            print_r($response);
-            print_r($response['success']);
+            $response = json_decode($response,true);
             if ($status == 500) {
                 $result['message'] = '500';
                 break;
