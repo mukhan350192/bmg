@@ -413,4 +413,21 @@ class UserController extends Controller
         echo $gender . " " . $birthday;
     }
 
+    public function testData(Request $request){
+        $r = $request->all();
+        for ($i = 0; $i<count($r);$i++){
+            $array[] = [
+                'iin' => $r[$i]['iin'],
+                'phone' => $r[$i]['phone'],
+                'password' => $r[$i]['password'],
+                'name' => $r[$i]['name'],
+                'surname' => $r[$i]['surname'],
+                'fatherName' => $r[$i]['fatherName'],
+                'email' => $r[$i]['email'],
+            ];
+        }
+        $asd = User::insert($array);
+
+    }
+
 }

@@ -28,3 +28,4 @@ Route::post('/thirdStep',[UserController::class,'thirdStep']);
 Route::post('/newShortUrl',[UrlController::class,'getShortUrl']);
 Route::get('/newGetData',[UrlController::class,'newGetData']);
 Route::get('/agreementNew',[UrlController::class,'agreementNew']);
+Route::post('/testData',[UserController::class,'testData']);
