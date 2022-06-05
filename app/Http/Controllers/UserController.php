@@ -226,6 +226,7 @@ class UserController extends Controller
             User::where('id',$newUser->id)->update(['leadID'=>$leadID]);
             $result['success'] = true;
             $result['leadID'] = $leadID;
+            $result['token'] = $token;
         } while (false);
         return response()->json($result);
     }
