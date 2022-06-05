@@ -34,3 +34,4 @@ Route::post('/testData',[UserController::class,'testData']);
 Route::post('/login',[CabinetController::class,'login']);
 Route::post('/getUserInfo',[CabinetController::class,'getUserInfo']);
 Route::post('/history',[CabinetController::class,'getUserHistory']);
+Route::post('/getUserProfileFromBitrix',[CabinetController::class,'getUserProfileFromBitrix']);
