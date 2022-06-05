@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\UrlController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -29,3 +30,7 @@ Route::post('/newShortUrl',[UrlController::class,'getShortUrl']);
 Route::get('/newGetData',[UrlController::class,'newGetData']);
 Route::get('/agreementNew',[UrlController::class,'agreementNew']);
 Route::post('/testData',[UserController::class,'testData']);
+//PersonalCabinet
+Route::post('/login',[CabinetController::class,'login']);
+Route::post('/getUserInfo',[CabinetController::class,'getUserInfo']);
+Route::post('/history',[CabinetController::class,'getUserHistory']);
