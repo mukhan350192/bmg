@@ -133,4 +133,40 @@ class CabinetController extends Controller
         } while (false);
         return response()->json($result);
     }
+
+    public function notFull(Request $request){
+        $token = $request->input('token');
+        $result['success'] = false;
+        do {
+            if (!$token) {
+                $result['message'] = 'Не передан иин';
+                break;
+            }
+            $user = User::where('token',$token)->select('iin')->first();
+            if (!$user){
+                $result['message'] = 'Пользователь не найден';
+                break;
+            }
+            $iin = $user->iin;
+            $url = 'https://icredit-crm.kz/api/site/not_full_anketa.php?iin=' . $iin;
+            $s = file_get_contents($url);
+            $s = json_decode($s, true);
+            if (isset($s) && $s['step'] == 2) {
+                $result['step'] = 2;
+                $result['success'] = true;
+                break;
+            }
+            if (isset($s) && $s['step'] == 3) {
+                $result['step'] = 3;
+                $result['success'] = true;
+                break;
+            }
+            if (isset($s) && $s['step'] == 1) {
+                $result['step'] = 1;
+                $result['success'] = true;
+                break;
+            }
+        } while (false);
+        return response()->json($result);
+    }
 }
