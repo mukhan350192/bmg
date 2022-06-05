@@ -158,7 +158,7 @@ class UrlController extends Controller
             DB::table('new_short_url')->where('leadID',$leadID)->update(['status'=>2]);
 
             $http = new Client(['verify' => false]);
-            $responseUrl = "https://ic24.almait.kz/api/docs/signNew.php";
+            $responseUrl = "https://icredit-crm.kz/api/docs/signNew.php";
             try {
                 $response = $http->get($responseUrl, [
 
