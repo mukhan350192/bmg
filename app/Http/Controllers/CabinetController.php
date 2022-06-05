@@ -97,4 +97,40 @@ class CabinetController extends Controller
         }while(false);
         return response()->json($result);
     }
+
+    public function getUserProfileFromBitrix(Request $request)
+    {
+        $token = $request->input('token');
+        $result['success'] = false;
+        $key = 'MSBckXf5530ZlFQIgHPeJYsF4mE8FjUX';
+        do {
+            if (!$token) {
+                $result['message'] = 'Не передан токен';
+                break;
+            }
+            $user = User::where('token',$token)->select('iin')->first();
+            if (!$user){
+                $result['message'] = 'Не найден пользователь';
+                break;
+            }
+            $key = 'MSBckXf5530ZlFQIgHPeJYsF4mE8FjUX';
+
+            $http = new Client(['verify' => false]);
+            try {
+                $response = $http->get('https://icredit-crm.kz/api/site/request.php', [
+
+                    'query' => [
+                        'iin' => $user->iin,
+                        'key' => $key,
+                    ],
+                ]);
+
+                return $response->getBody()->getContents();
+
+            } catch (BadResponseException $e) {
+                info('cannot get userData');
+            }
+        } while (false);
+        return response()->json($result);
+    }
 }
