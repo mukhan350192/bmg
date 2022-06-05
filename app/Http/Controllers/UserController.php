@@ -223,9 +223,7 @@ class UserController extends Controller
             $response = $response->getBody()->getContents();
             $response = json_decode($response, true);
             $leadID = $response['leadID'];
-            $user = new User();
-            $user->leadID = $leadID;
-            $user->save();
+            User::where('id',$newUser->id)->update(['leadID'=>$leadID]);
             $result['success'] = true;
             $result['leadID'] = $leadID;
         } while (false);
