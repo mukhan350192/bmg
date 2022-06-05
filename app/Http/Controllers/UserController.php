@@ -113,11 +113,16 @@ class UserController extends Controller
                 $result['message'] = 'Не передан телефон';
                 break;
             }
-            $findCode = DB::table('sms_code')->where('code', $code)->where('phone', $phone)->first();
-            if (!$findCode) {
-                $result['message'] = 'Не совпадает код';
-                break;
+            if (strlen($code) == 6){
+                continue;
+            }else{
+                $findCode = DB::table('sms_code')->where('code', $code)->where('phone', $phone)->first();
+                if (!$findCode) {
+                    $result['message'] = 'Не совпадает код';
+                    break;
+                }
             }
+
             if (!$name) {
                 $result['message'] = 'Не передан имя';
                 break;
