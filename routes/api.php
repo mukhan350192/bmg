@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CabinetController;
+use App\Http\Controllers\PayboxController;
 use App\Http\Controllers\UrlController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -37,3 +38,6 @@ Route::post('/history',[CabinetController::class,'getUserHistory']);
 Route::post('/getUserProfileFromBitrix',[CabinetController::class,'getUserProfileFromBitrix']);
 Route::post('/notFull',[CabinetController::class,'notFull']);
 Route::post('/repeatUser',[CabinetController::class,'getRepeatRequest']);
+//Payment
+Route::post('make_payment123', [PayboxController::class,'payment']);
+Route::post('payment-result', [PayboxController::class,'paymentResult'])->name('payment-result');
