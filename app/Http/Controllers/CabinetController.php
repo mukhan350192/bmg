@@ -169,4 +169,51 @@ class CabinetController extends Controller
         } while (false);
         return response()->json($result);
     }
+
+    public function getRepeatRequest(Request $request)
+    {
+        $token = $request->input('token');
+        $key = 'MSBckXf5530ZlFQIgHPeJYsF4mE8FjUX';
+        $result['success'] = false;
+        do {
+            if (!$token) {
+                $result['message'] = 'Не передан токен';
+                break;
+            }
+            $user = User::where('token',$token)->select('iin')->first();
+            if (!$user){
+                $result['message'] = 'Не найден пользователь';
+                break;
+            }
+            $http = new Client(['verify' => false]);
+            try {
+                $response = $http->get("http://icredit-crm.kz/api/site/repeat.php", [
+
+                    'query' => [
+                        'iin' => $user->iin,
+                        'key' => $key,
+                    ],
+                ]);
+
+                $xml =  $response->getBody()->getContents();
+                $res = json_decode($xml, true);
+                if (isset($res['success']) && $res['success'] == false){
+                    if (isset($res['message'])){
+                        $result['message'] = $res['message'];
+                        break;
+                    }
+                    if (isset($res['date'])){
+                        $result['message'] = 'Вам пока отказано подавать повторный займ до '.$res['date'];
+                        break;
+                    }
+                }
+                $result['success'] = true;
+
+            } catch (BadResponseException $e) {
+                info($e);
+            }
+
+        } while (false);
+        return response()->json($result);
+    }
 }

@@ -36,3 +36,4 @@ Route::post('/getUserInfo',[CabinetController::class,'getUserInfo']);
 Route::post('/history',[CabinetController::class,'getUserHistory']);
 Route::post('/getUserProfileFromBitrix',[CabinetController::class,'getUserProfileFromBitrix']);
 Route::post('/notFull',[CabinetController::class,'notFull']);
+Route::post('/repeatUser',[CabinetController::class,'getRepeatRequest']);
