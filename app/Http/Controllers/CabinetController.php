@@ -216,4 +216,48 @@ class CabinetController extends Controller
         } while (false);
         return response()->json($result);
     }
+
+    public function repeatRequest(Request $request){
+        $token = $request->input('token');
+        $period = $request->input('period');
+        $amount = $request->input('amount');
+        $result['success'] = false;
+        do{
+            if (!$token){
+                $result['message'] = 'Не передан токен';
+                break;
+            }
+            if (!$period){
+                $result['message'] = 'Не передан срок';
+                break;
+            }
+            if (!$amount){
+                $result['message'] = 'Не передан сумма';
+                break;
+            }
+            $user = User::where('token',$token)->first();
+            if (!$user){
+                $result['message'] = 'Не найден пользователь';
+                break;
+            }
+            $http = new Client(['verify' => false]);
+            try {
+                $response = $http->get('https://icredit-crm.kz/api/webhock/repeat.php', [
+
+                    'query' => [
+                        'iin' => $user->iin,
+                        'period' => $period,
+                        'amount' => $amount,
+                    ],
+                ]);
+
+                return $response->getBody()->getContents();
+
+            } catch (BadResponseException $e) {
+                info('cannot get userData');
+            }
+
+        }while(false);
+        return response()->json($result);
+    }
 }
