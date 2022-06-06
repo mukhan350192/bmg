@@ -38,6 +38,7 @@ Route::post('/history',[CabinetController::class,'getUserHistory']);
 Route::post('/getUserProfileFromBitrix',[CabinetController::class,'getUserProfileFromBitrix']);
 Route::post('/notFull',[CabinetController::class,'notFull']);
 Route::post('/repeatUser',[CabinetController::class,'getRepeatRequest']);
+Route::post('/repeatRequest',[CabinetController::class,'repeatRequest']);
 //Payment
 Route::post('make_payment123', [PayboxController::class,'payment']);
 Route::post('payment-result', [PayboxController::class,'paymentResult'])->name('payment-result');

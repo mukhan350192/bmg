@@ -76,7 +76,7 @@ class PayboxController extends Controller
                'created_at' => Carbon::now(),
                'updated_at' => Carbon::now(),
             ]);
-            $iin = (int)$request->extra_user_id;
+            $iin = $request->extra_user_id;
             $amount = $request->pg_amount;
             date_default_timezone_set('Asia/Almaty');
             $time = date('d.m.Y H:i:s');
