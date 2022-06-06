@@ -207,7 +207,7 @@ class UserController extends Controller
             }
             DB::commit();
             $http = new Client(['verify' => false]);
-            $link = 'https://icredit-crm.kz/api/site/bmg_step3.php';
+            $link = 'https://icredit-crm.kz/api/site/bmg_step1.php';
             $response = $http->get($link, [
                 'query' => [
                     'iin' => $iin,
