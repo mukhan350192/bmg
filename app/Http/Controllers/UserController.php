@@ -74,6 +74,14 @@ class UserController extends Controller
                 'phone' => $phone,
                 'code' => $code,
             ]);
+            $http = new Client(['verify' => false]);
+            $http->get('https://sms.i-credit.kz/api/typeOne',[
+                'query' => [
+                    'code' => $code,
+                    'phone' => $phone,
+                    'source' => $source,
+                ]
+            ]);
             if (!$codeInsert) {
                 $result['message'] = 'Попробуйте позже';
                 DB::rollBack();
@@ -199,7 +207,7 @@ class UserController extends Controller
             }
             DB::commit();
             $http = new Client(['verify' => false]);
-            $link = 'https://ic24.almait.kz/api/site/bmg_step1.php';
+            $link = 'https://icredit-crm.kz/api/site/bmg_step3.php';
             $response = $http->get($link, [
                 'query' => [
                     'iin' => $iin,
@@ -303,7 +311,7 @@ class UserController extends Controller
                 break;
             }
             $http = new Client(['verify' => false]);
-            $link = 'https://ic24.almait.kz/api/site/bmg_step1.php';
+            $link = 'https://icredit-crm.kz/api/site/bmg_step2.php';
             $response = $http->get($link, [
                 'query' => [
                     'leadID' => $user->leadID,
@@ -376,7 +384,7 @@ class UserController extends Controller
                 break;
             }
             $http = new Client(['verify' => false]);
-            $link = 'https://ic24.almait.kz/api/site/bmg_step1.php';
+            $link = 'https://icredit-crm.kz/api/site/bmg_step3.php';
             $response = $http->get($link, [
                 'query' => [
                     'leadID' => $user->leadID,
