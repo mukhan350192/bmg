@@ -262,14 +262,7 @@ class UserController extends Controller
                 $result['message'] = 'Не передан должность';
                 break;
             }
-            if (!$lastSix) {
-                $result['message'] = 'Не передан сумма закрытых кредитов за последние 6 месяцев';
-                break;
-            }
-            if (!$deposit) {
-                $result['message'] = 'Не передан остаток на депозите';
-                break;
-            }
+
             if (!$fioContact) {
                 $result['message'] = 'Не передан ФИО родственника';
                 break;
