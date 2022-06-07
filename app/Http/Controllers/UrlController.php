@@ -78,7 +78,8 @@ class UrlController extends Controller
         return response()->json($result);
     }
 
-    public function newGetData(Request $request){
+    public function newGetData(Request $request)
+    {
         $token = $request->input('token');
         $leadID = $request->input('leadID');
         $result['success'] = true;
@@ -88,11 +89,11 @@ class UrlController extends Controller
                 $result['message'] = 'Не передан токен!';
                 break;
             }
-            if ($token){
-                $get = DB::table('new_short_url')->select('*')->where('token', $token)->where('status',1)->first();
+            if ($token) {
+                $get = DB::table('new_short_url')->select('*')->where('token', $token)->where('status', 1)->first();
             }
-            if ($leadID){
-                $get = DB::table('new_short_url')->select('*')->where('leadID', $leadID)->where('status',1)->first();
+            if ($leadID) {
+                $get = DB::table('new_short_url')->select('*')->where('leadID', $leadID)->where('status', 1)->first();
             }
 
 
@@ -115,8 +116,8 @@ class UrlController extends Controller
             $result['phone'] = $get->phone;
             $result['iban'] = $get->iban;
             $result['email'] = $get->email;
-            $result['datePayment'] = date('d.m.Y',strtotime($get->repaymentDate));
-            $result['givenDate'] = date('d.m.Y',strtotime($get->givenDate));
+            $result['datePayment'] = date('d.m.Y', strtotime($get->repaymentDate));
+            $result['givenDate'] = date('d.m.Y', strtotime($get->givenDate));
             $result['total'] = $get->repaymentAmount;
             $result['reward'] = $get->reward;
             $result['contractNumber'] = $get->contractNumber;
@@ -155,7 +156,7 @@ class UrlController extends Controller
                 $result['success'] = false;
                 break;
             }
-            DB::table('new_short_url')->where('leadID',$leadID)->update(['status'=>2]);
+            DB::table('new_short_url')->where('leadID', $leadID)->update(['status' => 2]);
 
             $http = new Client(['verify' => false]);
             $responseUrl = "https://icredit-crm.kz/api/docs/signNew.php";
@@ -175,6 +176,113 @@ class UrlController extends Controller
 
         } while (false);
 
+        return response()->json($result);
+    }
+
+    public function prolongation(Request $request)
+    {
+        $doc1 = $request->input('doc1');
+        $doc2 = $request->input('doc2');
+        $doc3 = $request->input('doc3');
+        $doc4 = $request->input('doc4');
+        $doc5 = $request->input('doc5');
+        $dealID = $request->input('dealID');
+        $token = Str::random(16);
+        $result['success'] = false;
+        do {
+            if (!$dealID) {
+                $result['message'] = 'Не передан номер сделки';
+                break;
+            }
+            DB::table('prolongation')->insertGetId([
+                'doc1' => $doc1,
+                'doc2' => $doc2,
+                'doc3' => $doc3,
+                'doc4' => $doc4,
+                'doc5' => $doc5,
+                'dealID' => $dealID,
+                'token' => $token,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            $result['success'] = true;
+            $result['url'] = "https://i-credit.kz/aggrements?token=$token";
+        } while (false);
+        return response()->json($result);
+
+    }
+
+    public function getData(Request $request){
+        $token = $request->input('token');
+        $result['success'] = false;
+        do{
+            if (!$token){
+                $result['message'] = 'Не передан токен';
+                break;
+            }
+            $docs = DB::table('prolongation')->where('token',$token)->where('status',1)->first();
+            if (!$docs){
+                $result['message'] = 'Документы не найдены';
+                break;
+            }
+            $result['id'] = $docs->dealID;
+            $result['id_req'] = 1;
+            $result['res'] = true;
+            $result['docs'] = [
+                [
+                    'name' => 'Заявление на страхование',
+                    'link' => $docs->doc1,
+                ],
+                [
+                    'name' => 'Согласие на страхование микрокредита',
+                    'link' => $docs->doc2,
+                ],
+                [
+                    'name' => 'Договор добровольного срочного страхования жизни',
+                    'link' => $docs->doc3,
+                ],
+                [
+                    'name' => 'Договор о предоставлении микрокредита',
+                    'link' => $docs->doc4,
+                ],
+                [
+                    'name' => 'Реструктуризация',
+                    'link' => $docs->doc5,
+                ]
+            ];
+        }while(false);
+        return response()->json($result);
+    }
+
+    public function prolongationAgreement(Request $request){
+        $dealID = $request->input('request_id');
+        $sign = $request->input('sign');
+        $result['success'] = false;
+        do{
+            if (!$dealID){
+                $result['message'] = 'Не передан айди сделки';
+                break;
+            }
+            if (!$sign){
+                $result['message'] = 'Не передан подпись';
+                break;
+            }
+            $data = DB::table('prolongation')->where('dealID',$dealID)->first();
+            if (!$data){
+                $result['message'] = 'Не найден документ';
+                break;
+            }
+            DB::table('prolongation')->where('dealID',$dealID)->update(['status',2]);
+            $url = "https://icredit-crm.kz/api/webhock/sign.php?sign=$sign&dealID=$dealID";
+            $http = new Client(['verify' => false]);
+            try{
+                $http->get($url);
+            }catch (BadResponseException $e){
+                info('bad sign '.$dealID);
+            }
+            $result['success'] = true;
+        }while(false);
         return response()->json($result);
     }
 }

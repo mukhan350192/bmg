@@ -27,10 +27,16 @@ Route::post('/sendSMS',[UserController::class,'sendSMS']);
 Route::post('/confirmSMS',[UserController::class,'confirmSMS']);
 Route::post('/secondStep',[UserController::class,'secondStep']);
 Route::post('/thirdStep',[UserController::class,'thirdStep']);
+Route::post('/testData',[UserController::class,'testData']);
+
+//shortUrl
 Route::post('/newShortUrl',[UrlController::class,'getShortUrl']);
 Route::get('/newGetData',[UrlController::class,'newGetData']);
 Route::get('/agreementNew',[UrlController::class,'agreementNew']);
-Route::post('/testData',[UserController::class,'testData']);
+Route::get('/prolongation',[UrlController::class,'prolongation']);
+Route::get('/getData',[UrlController::class,'getData']);
+Route::get('/prolongationAgreement',[UrlController::class,'prolongationAgreement']);
+
 //PersonalCabinet
 Route::post('/login',[CabinetController::class,'login']);
 Route::post('/loginTest',[CabinetController::class,'loginTest']);
