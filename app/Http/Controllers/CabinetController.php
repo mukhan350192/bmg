@@ -57,6 +57,7 @@ class CabinetController extends Controller
             if (!$user){
                 break;
             }
+            print_r($user->password);
             if (Hash::check($password,$user->password)){
                 $result['message'] = true;
             }else{
