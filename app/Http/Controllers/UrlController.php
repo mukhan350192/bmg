@@ -229,6 +229,7 @@ class UrlController extends Controller
             $result['id'] = $docs->dealID;
             $result['id_req'] = 1;
             $result['res'] = true;
+            $result['success'] = true;
             $result['docs'] = [
                 [
                     'name' => 'Заявление на страхование',
