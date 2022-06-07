@@ -33,6 +33,7 @@ Route::get('/agreementNew',[UrlController::class,'agreementNew']);
 Route::post('/testData',[UserController::class,'testData']);
 //PersonalCabinet
 Route::post('/login',[CabinetController::class,'login']);
+Route::post('/loginTest',[CabinetController::class,'loginTest']);
 Route::post('/getUserInfo',[CabinetController::class,'getUserInfo']);
 Route::post('/history',[CabinetController::class,'getUserHistory']);
 Route::post('/getUserProfileFromBitrix',[CabinetController::class,'getUserProfileFromBitrix']);

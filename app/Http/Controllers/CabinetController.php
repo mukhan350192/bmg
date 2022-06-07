@@ -42,6 +42,30 @@ class CabinetController extends Controller
         return response()->json($result);
     }
 
+    public function loginTest(Request $request){
+        $iin = $request->input('iin');
+        $password = $request->input('password');
+        $result['success'] = false;
+        do{
+            if (!$iin){
+                break;
+            }
+            if (!$password){
+                break;
+            }
+            $user = User::where('iin',$iin)->first();
+            if (!$user){
+                break;
+            }
+            if (Hash::check($password,$user->password)){
+                $result['message'] = true;
+            }else{
+                $result['message'] = false;
+            }
+        }while(false);
+        return response()->json($result);
+    }
+
     public function getUserInfo(Request $request){
         $token = $request->input('token');
         $result['success'] = false;
