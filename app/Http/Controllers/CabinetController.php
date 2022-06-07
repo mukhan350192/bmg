@@ -61,7 +61,7 @@ class CabinetController extends Controller
             echo 'test1/n';
             var_dump(password_verify('test',bcrypt('test')));
             echo 'test2/n';
-            var_dump(Hash::check($password,$user->password));
+            var_dump(Hash::check(bcrypt($password),$user->password));
             echo 'test3/n';
             var_dump(Hash::check($user->password,$password));
             if (Hash::check($password,$user->password)){
