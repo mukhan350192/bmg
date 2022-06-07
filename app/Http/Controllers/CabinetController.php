@@ -58,7 +58,7 @@ class CabinetController extends Controller
                 break;
             }
             print_r($user->password);
-            var_dump(password_verify($password,$user->password));
+            var_dump(password_verify('test',bcrypt('test')));
             if (Hash::check($password,$user->password)){
                 $result['message'] = true;
             }else{
