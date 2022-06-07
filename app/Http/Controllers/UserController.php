@@ -188,7 +188,7 @@ class UserController extends Controller
             DB::beginTransaction();
             $newUser = User::create([
                 'iin' => $iin,
-                'password' => bcrypt('password'),
+                'password' => bcrypt($password),
                 'phone' => $phone,
                 'token' => $token,
                 'name' => $name,

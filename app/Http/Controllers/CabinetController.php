@@ -29,7 +29,7 @@ class CabinetController extends Controller
                 $result['message'] = 'Не найден пользователь';
                 break;
             }
-            if (Hash::check($password,$user->password)){
+            if (!Hash::check($password,$user->password)){
                 $result['message'] = 'Логин или пароль неправильный';
                 break;
             }
