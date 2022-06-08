@@ -36,7 +36,7 @@ Route::get('/newGetData',[UrlController::class,'newGetData']);
 Route::get('/agreementNew',[UrlController::class,'agreementNew']);
 Route::get('/prolongation',[UrlController::class,'prolongation']);
 Route::get('/getData',[UrlController::class,'getData']);
-Route::get('/prolongationAgreement',[UrlController::class,'prolongationAgreement']);
+Route::get('/agreement',[UrlController::class,'agreement']);
 
 //PersonalCabinet
 Route::post('/login',[CabinetController::class,'login']);
