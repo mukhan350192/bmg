@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CabinetController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\PayboxController;
 use App\Http\Controllers\UrlController;
 use App\Http\Controllers\UserController;
@@ -49,3 +50,7 @@ Route::post('/repeatRequest',[CabinetController::class,'repeatRequest']);
 //Payment
 Route::post('make_payment123', [PayboxController::class,'payment']);
 Route::post('payment-result', [PayboxController::class,'paymentResult'])->name('payment-result');
+//password
+Route::get('/checkPerson',[PasswordController::class,'checkPerson']);
+Route::get('/checkUrl',[PasswordController::class,'checkUrl']);
+Route::get('/resetPassword',[PasswordController::class,'resetPassword']);
