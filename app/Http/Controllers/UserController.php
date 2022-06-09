@@ -334,6 +334,7 @@ class UserController extends Controller
         $cardName = $request->input('cardName');
         $source = $request->input('source');
         $clickID = $request->input('clickID');
+        $webID = $request->input('web_id');
         $result['success'] = false;
         do {
             if (!$token) {
@@ -387,6 +388,7 @@ class UserController extends Controller
                     'cardNumber' => $cardNumber,
                     'cardIssue' => $cardIssue,
                     'cardName' => $cardName,
+                    'web_id' => $webID,
                 ],
             ]);
             DB::commit();
