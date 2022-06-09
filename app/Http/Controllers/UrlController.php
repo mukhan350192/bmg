@@ -274,7 +274,7 @@ class UrlController extends Controller
                 $result['message'] = 'Не найден документ';
                 break;
             }
-            DB::table('prolongation')->where('dealID',$dealID)->update(['status',2]);
+            DB::table('prolongation')->where('dealID',$dealID)->update(['status'=>2]);
             $url = "https://icredit-crm.kz/api/webhock/sign.php?sign=$sign&dealID=$dealID";
             $http = new Client(['verify' => false]);
             try{
