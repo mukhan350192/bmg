@@ -257,7 +257,7 @@ class UrlController extends Controller
     }
 
     public function prolongationAgreement(Request $request){
-        $dealID = $request->input('request_id');
+        $dealID = $request->input('id');
         $sign = $request->input('sign');
         $result['success'] = false;
         do{
