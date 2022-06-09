@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -320,6 +321,7 @@ class UserController extends Controller
                 ],
             ]);
             DB::commit();
+
             $result['success'] = true;
         } while (false);
         return response()->json($result);
@@ -392,6 +394,8 @@ class UserController extends Controller
                 ],
             ]);
             DB::commit();
+            $ID = strtotime($user->created_at);
+            $this->cpaPostback($source,$clickID,$ID);
             $result['success'] = true;
         } while (false);
         return response()->json($result);
@@ -434,6 +438,19 @@ class UserController extends Controller
             ];
         }
         $asd = User::insert($array);
+
+    }
+
+    public function cpaPostback($cpaSource, $clickID, $requestNumber){
+        if ($cpaSource == 'leadgid'){
+            $url = "http://go.leadgid.ru/aff_lsr?offer_id=5062&adv_sub=$requestNumber&transaction_id=$clickID";
+            $http = new Client(['verify' => false]);
+            try{
+                $http->get($url);
+            }catch (BadResponseException $e){
+                info($e);
+            }
+        }
 
     }
 
