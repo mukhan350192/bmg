@@ -256,7 +256,7 @@ class UrlController extends Controller
         return response()->json($result);
     }
 
-    public function prolongationAgreement(Request $request){
+    public function agreement(Request $request){
         $dealID = $request->input('id');
         $sign = $request->input('sign');
         $result['success'] = false;
