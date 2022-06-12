@@ -26,6 +26,7 @@ Route::post('/test',[UserController::class,'test']);
 Route::post('/takeCode',[UserController::class,'takeCode']);
 Route::post('/sendSMS',[UserController::class,'sendSMS']);
 Route::post('/confirmSMS',[UserController::class,'confirmSMS']);
+Route::post('/confirmSMSTest',[UserController::class,'confirmSMSTest']);
 Route::post('/secondStep',[UserController::class,'secondStep']);
 Route::post('/thirdStep',[UserController::class,'thirdStep']);
 Route::post('/testData',[UserController::class,'testData']);

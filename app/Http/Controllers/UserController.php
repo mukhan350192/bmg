@@ -446,7 +446,8 @@ class UserController extends Controller
             $url = "http://go.leadgid.ru/aff_lsr?offer_id=5062&adv_sub=$requestNumber&transaction_id=$clickID";
             $http = new Client(['verify' => false]);
             try{
-                $http->get($url);
+                $response = $http->get($url);
+
             }catch (BadResponseException $e){
                 info($e);
             }
@@ -454,4 +455,146 @@ class UserController extends Controller
 
     }
 
+    public function confirmSMSTest(Request $request)
+    {
+        $code = $request->input('code');
+        $name = $request->input('name');
+        $surname = $request->input('surname');
+        $fatherName = $request->input('fatherName');
+        $iin = $request->input('iin');
+        $password = $request->input('password');
+        $amount = $request->input('amount');
+        $period = $request->input('period');
+        $phone = $request->input('phone');
+        $docNumber = $request->input('docNumber');
+        $docIssue = $request->input('docIssue');
+        $startGiven = $request->input('startGiven');
+        $endGiven = $request->input('endGiven');
+        $email = $request->input('email');
+        $source = $request->input('source');
+        $result['success'] = false;
+        do {
+            if (!$code) {
+                $result['message'] = 'Не передан код';
+                break;
+            }
+            if (!$phone) {
+                $result['message'] = 'Не передан телефон';
+                break;
+            }
+            if (strlen($code) == 4){
+                $findCode = DB::table('sms_code')->where('code', $code)->where('phone', $phone)->first();
+                if (!$findCode) {
+                    $result['message'] = 'Не совпадает код';
+                    break;
+                }
+            }
+
+            if (!$name) {
+                $result['message'] = 'Не передан имя';
+                break;
+            }
+            if (!$surname) {
+                $result['message'] = 'Не передан фамилия';
+                break;
+            }
+            if (!$iin) {
+                $result['message'] = 'Не передан ИИН';
+                break;
+            }
+            if (!$password) {
+                $result['message'] = 'Не передан пароль';
+                break;
+            }
+            $user = User::where('iin', $iin)->first();
+            if ($user) {
+                $result['message'] = 'Пользователь зарегистирован';
+                break;
+            }
+            if (!$amount) {
+                $result['message'] = 'Не передан сумма';
+                break;
+            }
+            if (!$period) {
+                $result['message'] = 'Не передан срок';
+                break;
+            }
+            if (!$docNumber) {
+                $result['message'] = 'Не передан номер документа';
+                break;
+            }
+            if (!$docIssue) {
+                $result['message'] = 'Не передан орган выдачи';
+                break;
+            }
+            if (!$startGiven) {
+                $result['message'] = 'Не передан номер документа';
+                break;
+            }
+            if (!$endGiven) {
+                $result['message'] = 'Не передан номер документа';
+                break;
+            }
+            if (!$email) {
+                $result['message'] = 'Не передан почта';
+                break;
+            }
+            if (!$source){
+                $result['message'] = 'Не передан источник';
+                break;
+            }
+            $token = sha1(Str::random(64) . time());
+            DB::beginTransaction();
+            $newUser = User::create([
+                'iin' => $iin,
+                'password' => bcrypt($password),
+                'phone' => $phone,
+                'token' => $token,
+                'name' => $name,
+                'surname' => $surname,
+                'fatherName' => $fatherName,
+                'email' => $email,
+                'docNumber' => $docNumber,
+                'docIssue' => $docIssue,
+                'startGiven' => $startGiven,
+                'endGiven' => $endGiven,
+            ]);
+            if (!$newUser) {
+                $result['message'] = 'Попробуйте позже';
+                DB::rollBack();
+                break;
+            }
+            DB::commit();
+            $http = new Client(['verify' => false]);
+            $link = 'https://icredit-crm.kz/api/site/bmg_step1.php';
+            $response = $http->get($link, [
+                'query' => [
+                    'iin' => $iin,
+                    'password' => $password,
+                    'name' => $name,
+                    'surname' => $surname,
+                    'fatherName' => $fatherName,
+                    'amount' => $amount,
+                    'period' => $period,
+                    'phone' => $phone,
+                    'docNumber' => $docNumber,
+                    'docIssue' => $docIssue,
+                    'startGiven' => $startGiven,
+                    'endGiven' => $endGiven,
+                    'email' => $email,
+                    'code' => $code,
+                    'ID' => time(),
+                    'source' => $source,
+                ],
+            ]);
+            $response = $response->getBody()->getContents();
+            $response = json_decode($response, true);
+            $leadID = $response['leadID'];
+            User::where('id',$newUser->id)->update(['leadID'=>$leadID]);
+            $result['success'] = true;
+            $result['leadID'] = $leadID;
+            $result['token'] = $token;
+        } while (false);
+        return response()->json($result);
+    }
 }
