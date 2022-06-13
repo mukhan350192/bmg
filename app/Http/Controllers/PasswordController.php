@@ -95,7 +95,7 @@ class PasswordController extends Controller
                 $result['message'] = 'Не найден пользователь';
                 break;
             }
-            User::where('iin')->update(['password' => bcrypt($password)]);
+            User::where('iin',$iin)->update(['password' => bcrypt($password)]);
             DB::table('reset_password')
                 ->where('id', $id)
                 ->update(['status' => 2]);
