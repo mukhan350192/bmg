@@ -40,7 +40,7 @@ class PasswordController extends Controller
                 'updated_at' => Carbon::now(),
             ]);
 
-            $sms = "https://sms.i-credit.kz/api/resetPassword?phone=$phone&url='$url'";
+            $sms = "https://sms.i-credit.kz/api/resetPassword?phone=$phone&iin=$iin&id=$id";
             $smsResponse = file_get_contents($sms);
             $smsResponse = json_decode($smsResponse, true);
 
