@@ -90,10 +90,20 @@ class UrlController extends Controller
                 break;
             }
             if ($token) {
-                $get = DB::table('new_short_url')->select('*')->where('token', $token)->where('status', 1)->first();
+                $get = DB::table('new_short_url')
+                    ->select('*')
+                    ->where('token', $token)
+                    ->where('status', 1)
+                    ->whereDate('created_at', '>=', now()->subDays(3)->setTime(0, 0, 0)->toDateTimeString())
+                    ->first();
             }
             if ($leadID) {
-                $get = DB::table('new_short_url')->select('*')->where('leadID', $leadID)->where('status', 1)->first();
+                $get = DB::table('new_short_url')
+                    ->select('*')
+                    ->where('leadID', $leadID)
+                    ->where('status', 1)
+                    ->whereDate('created_at', '>=', now()->subDays(3)->setTime(0, 0, 0)->toDateTimeString())
+                    ->first();
             }
 
 
@@ -213,16 +223,17 @@ class UrlController extends Controller
 
     }
 
-    public function getData(Request $request){
+    public function getData(Request $request)
+    {
         $token = $request->input('token');
         $result['success'] = false;
-        do{
-            if (!$token){
+        do {
+            if (!$token) {
                 $result['message'] = 'Не передан токен';
                 break;
             }
-            $docs = DB::table('prolongation')->where('token',$token)->where('status',1)->first();
-            if (!$docs){
+            $docs = DB::table('prolongation')->where('token', $token)->where('status', 1)->first();
+            if (!$docs) {
                 $result['message'] = 'Документы не найдены';
                 break;
             }
@@ -252,38 +263,39 @@ class UrlController extends Controller
                     'link' => $docs->doc5,
                 ]
             ];
-        }while(false);
+        } while (false);
         return response()->json($result);
     }
 
-    public function agreement(Request $request){
+    public function agreement(Request $request)
+    {
         $dealID = $request->input('id');
         $sign = $request->input('sign');
         $result['success'] = false;
-        do{
-            if (!$dealID){
+        do {
+            if (!$dealID) {
                 $result['message'] = 'Не передан айди сделки';
                 break;
             }
-            if (!$sign){
+            if (!$sign) {
                 $result['message'] = 'Не передан подпись';
                 break;
             }
-            $data = DB::table('prolongation')->where('dealID',$dealID)->first();
-            if (!$data){
+            $data = DB::table('prolongation')->where('dealID', $dealID)->first();
+            if (!$data) {
                 $result['message'] = 'Не найден документ';
                 break;
             }
-            DB::table('prolongation')->where('dealID',$dealID)->update(['status'=>2]);
+            DB::table('prolongation')->where('dealID', $dealID)->update(['status' => 2]);
             $url = "https://icredit-crm.kz/api/webhock/sign.php?sign=$sign&dealID=$dealID";
             $http = new Client(['verify' => false]);
-            try{
+            try {
                 $http->get($url);
-            }catch (BadResponseException $e){
-                info('bad sign '.$dealID);
+            } catch (BadResponseException $e) {
+                info('bad sign ' . $dealID);
             }
             $result['success'] = true;
-        }while(false);
+        } while (false);
         return response()->json($result);
     }
 }
