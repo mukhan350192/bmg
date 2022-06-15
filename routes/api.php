@@ -3,6 +3,7 @@
 use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\PayboxController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UrlController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -55,3 +56,12 @@ Route::post('payment-result', [PayboxController::class,'paymentResult'])->name('
 Route::get('/checkPerson',[PasswordController::class,'checkPerson']);
 Route::get('/checkUrl',[PasswordController::class,'checkUrl']);
 Route::get('/resetPassword',[PasswordController::class,'resetPassword']);
+//Test
+Route::prefix('test')->group(function (){
+    Route::post('/test',[TestController::class,'test']);
+    Route::post('/takeCode',[TestController::class,'takeCode']);
+    Route::post('/sendSMS',[TestController::class,'sendSMS']);
+    Route::post('/confirmSMS',[TestController::class,'confirmSMS']);
+    Route::post('/secondStep',[TestController::class,'secondStep']);
+    Route::post('/thirdStep',[TestController::class,'thirdStep']);
+});
