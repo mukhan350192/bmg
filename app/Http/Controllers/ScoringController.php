@@ -50,7 +50,7 @@ class ScoringController extends Controller
                 $result['message'] = 'Не передан вознаграждение';
                 break;
             }
-            DB::table('decision_details')->insertGetId([
+            $s = DB::table('decision_details')->insertGetId([
                'leadID' => $leadID,
                 'amount' => $amount,
                 'period' => $period,
@@ -63,6 +63,7 @@ class ScoringController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
+            print_r($s);
             $result['success'] = true;
         } while (false);
         return response()->json($result);
