@@ -3,6 +3,7 @@
 use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\PayboxController;
+use App\Http\Controllers\ScoringController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UrlController;
 use App\Http\Controllers\UserController;
@@ -65,3 +66,5 @@ Route::prefix('test')->group(function (){
     Route::post('/secondStep',[TestController::class,'secondStep']);
     Route::post('/thirdStep',[TestController::class,'thirdStep']);
 });
+//Scoring
+Route::get('/scoringResult',[ScoringController::class,'scoringResult']);
