@@ -132,6 +132,9 @@ class TestController extends Controller
                     $result['message'] = 'Не совпадает код';
                     break;
                 }
+                $bmg = 2;
+            }else{
+                $bmg = 1;
             }
 
             if (!$name) {
@@ -229,6 +232,7 @@ class TestController extends Controller
                     'code' => $code,
                     'ID' => time(),
                     'source' => $source,
+                    'bmg' => $bmg,
                 ],
             ]);
             $response = $response->getBody()->getContents();
