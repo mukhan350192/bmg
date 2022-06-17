@@ -23,9 +23,9 @@ class ScoringController extends Controller
                 break;
             }
             if ($bmg == 1) {
-                $bmg = true;
+                $bmg = 1;
             } else if ($bmg == 2) {
-                $bmg = false;
+                $bmg = 0;
             }
             if (isset($decision) && $decision == 0) {
                 DB::table('decision')->insertGetId([
@@ -41,7 +41,7 @@ class ScoringController extends Controller
             DB::table('decision')->insertGetId([
                 'leadID' => $leadID,
                 'decision' => true,
-                'bmg' => true,
+                'bmg' => $bmg,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
