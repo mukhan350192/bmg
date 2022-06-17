@@ -41,7 +41,7 @@ class ScoringController extends Controller
             DB::table('decision')->insertGetId([
                 'leadID' => $leadID,
                 'decision' => true,
-                'bmg' => $bmg,
+                'bmg' => true,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
