@@ -38,6 +38,13 @@ class ScoringController extends Controller
                 $result['success'] = true;
                 break;
             }
+            DB::table('decision')->insertGetId([
+                'leadID' => $leadID,
+                'decision' => true,
+                'bmg' => $bmg,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
             if (!$amount){
                 $result['message'] = 'Не передан сумма';
                 break;
@@ -66,6 +73,19 @@ class ScoringController extends Controller
             print_r($s);
             $result['success'] = true;
         } while (false);
+        return response()->json($result);
+    }
+
+    public function getScore(Request $request){
+        $leadID = $request->input('leadID');
+        $result['success'] = false;
+        do{
+            if (!$leadID){
+                $result['message'] = 'Не передан лид айди';
+                break;
+            }
+
+        }while(false);
         return response()->json($result);
     }
 }
