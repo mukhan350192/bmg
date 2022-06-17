@@ -397,7 +397,7 @@ class TestController extends Controller
             ]);
             DB::commit();
             $ID = strtotime($user->created_at);
-            $this->cpaPostback($source,$clickID,$ID);
+            //$this->cpaPostback($source,$clickID,$ID);
             $result['success'] = true;
         } while (false);
         return response()->json($result);
