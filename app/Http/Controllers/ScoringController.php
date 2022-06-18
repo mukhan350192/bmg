@@ -109,8 +109,8 @@ class ScoringController extends Controller
             $result['givenDate'] = date('d.m.Y',strtotime($decisionDetails->givenDate));
             $result['endDate'] = date('d.m.Y',strtotime($decisionDetails->endDate));
             $result['lpDate'] = date('d.m.Y',strtotime($decisionDetails->lpDate));
-            $result['total'] = date('d.m.Y',strtotime($decisionDetails->total));
-            $result['totalGrace'] = date('d.m.Y',strtotime($decisionDetails->totalGrace));
+            $result['total'] = $decisionDetails->total;
+            $result['totalGrace'] = $decisionDetails->totalGrace;
             $result['decision'] = true;
 
         }while(false);
