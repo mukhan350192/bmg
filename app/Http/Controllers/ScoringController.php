@@ -96,6 +96,7 @@ class ScoringController extends Controller
                 $result['message'] = 'Не найден решение';
                 break;
             }
+            $result['bmg'] = $decision->bmg;
             $result['success'] = true;
             if ($decision->decision == 0){
                 $result['decision'] = false;
