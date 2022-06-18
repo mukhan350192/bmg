@@ -91,7 +91,7 @@ class ScoringController extends Controller
                 break;
             }
 
-            $decision = DB::table('leadID',$user->leadID)->first();
+            $decision = DB::table('decision')->where('leadID',$user->leadID)->first();
             if (!$decision){
                 $result['message'] = 'Не найден решение';
                 break;
