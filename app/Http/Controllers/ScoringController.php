@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -77,13 +78,40 @@ class ScoringController extends Controller
     }
 
     public function getScore(Request $request){
-        $leadID = $request->input('leadID');
+        $token = $request->input('token');
         $result['success'] = false;
         do{
-            if (!$leadID){
+            if (!$token){
                 $result['message'] = 'Не передан лид айди';
                 break;
             }
+            $user = User::where('token',$token)->first();
+            if (!$user){
+                $result['message'] = 'Пользователь не найден';
+                break;
+            }
+
+            $decision = DB::table('leadID',$user->leadID)->first();
+            if (!$decision){
+                $result['message'] = 'Не найден решение';
+                break;
+            }
+            $result['success'] = true;
+            if ($decision->decision == 0){
+                $result['decision'] = false;
+                break;
+            }
+            $decisionDetails = DB::table('decision_details')->where('leadID',$user->leadID)->first();
+            $result['amount'] = $decisionDetails->amount;
+            $result['leadID'] = $user->leadID;
+            $result['period'] = $decisionDetails->period;
+            $result['reward'] = $decisionDetails->reward;
+            $result['givenDate'] = date('d.m.Y',strtotime($decisionDetails->givenDate));
+            $result['endDate'] = date('d.m.Y',strtotime($decisionDetails->endDate));
+            $result['lpDate'] = date('d.m.Y',strtotime($decisionDetails->lpDate));
+            $result['total'] = date('d.m.Y',strtotime($decisionDetails->total));
+            $result['totalGrace'] = date('d.m.Y',strtotime($decisionDetails->totalGrace));
+            $result['decision'] = true;
 
         }while(false);
         return response()->json($result);
