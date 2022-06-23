@@ -32,20 +32,8 @@ class UserController extends Controller
             $url = "http://178.170.221.75/biometria/public/api/takeCode?iin=$iin&phone=$phone";
             $response = $http->get($url);
             $status = $response->getStatusCode();
-            $response = $response->getBody()->getContents();
-            $response = json_decode($response,true);
-            if ($status == 500) {
-                $result['message'] = '500';
-                break;
-            }
-            if (isset($response['success']) && $response['success'] == true) {
-                $result['success'] = true;
-                break;
-            }
-            if (isset($response['success']) && $response['success'] == false) {
-                $result['success'] = false;
-                break;
-            }
+            return $response->getBody()->getContents();
+
         } while (false);
 
         return response()->json($result);
