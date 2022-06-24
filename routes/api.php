@@ -69,3 +69,4 @@ Route::prefix('test')->group(function (){
 //Scoring
 Route::get('/scoringResult',[ScoringController::class,'scoringResult']);
 Route::get('/getScore',[ScoringController::class,'getScore']);
+Route::get('/getDocumentData',[ScoringController::class,'getDocumentData']);

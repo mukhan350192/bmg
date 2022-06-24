@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -114,6 +115,30 @@ class ScoringController extends Controller
             $result['totalGrace'] = $decisionDetails->totalGrace;
             $result['decision'] = true;
 
+        }while(false);
+        return response()->json($result);
+    }
+
+    public function getDocumentData(Request $request){
+        $token = $request->input('token');
+        $result['success'] = false;
+        do{
+            if (!$token){
+                $result['message'] = 'Не передан токен';
+                break;
+            }
+            $user = User::where('token',$token)->first();
+            if (!$user){
+                $result['message'] = 'Не найден пользователь';
+                break;
+            }
+            $leadID = $user->leadID;
+            $http = new Client(['verify' => false]);
+            $url = "https://ic24.almait.kz/api/site/result.php?leadID=$leadID";
+            $response = $http->get($url);
+            if ($response){
+                return $response->getBody()->getContents();
+            }
         }while(false);
         return response()->json($result);
     }
