@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BioController;
 use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\PayboxController;
@@ -59,12 +60,12 @@ Route::get('/checkUrl',[PasswordController::class,'checkUrl']);
 Route::get('/resetPassword',[PasswordController::class,'resetPassword']);
 //Test
 Route::prefix('test')->group(function (){
-    Route::post('/test',[TestController::class,'test']);
-    Route::post('/takeCode',[TestController::class,'takeCode']);
-    Route::post('/sendSMS',[TestController::class,'sendSMS']);
-    Route::post('/confirmSMS',[TestController::class,'confirmSMS']);
-    Route::post('/secondStep',[TestController::class,'secondStep']);
-    Route::post('/thirdStep',[TestController::class,'thirdStep']);
+    Route::post('/test',[BioController::class,'test']);
+    Route::post('/takeCode',[BioController::class,'takeCode']);
+    Route::post('/sendSMS',[BioController::class,'sendSMS']);
+    Route::post('/confirmSMS',[BioController::class,'confirmSMS']);
+    Route::post('/secondStep',[BioController::class,'secondStep']);
+    Route::post('/thirdStep',[BioController::class,'thirdStep']);
 });
 //Scoring
 Route::get('/scoringResult',[ScoringController::class,'scoringResult']);
