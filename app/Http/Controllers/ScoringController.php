@@ -134,7 +134,7 @@ class ScoringController extends Controller
             }
             $leadID = $user->leadID;
             $http = new Client(['verify' => false]);
-            $url = "https://ic24.almait.kz/api/site/result.php?leadID=$leadID";
+            $url = "https://icredit-crm.kz/api/site/result.php?leadID=$leadID";
             $response = $http->get($url);
             if ($response){
                 return $response->getBody()->getContents();
