@@ -213,7 +213,9 @@ class TestController extends Controller
             }
             DB::commit();
             $http = new Client(['verify' => false]);
+
             $link = 'https://icredit-crm.kz/api/site/bmg_newStep1.php';
+
             $response = $http->get($link, [
                 'query' => [
                     'iin' => $iin,
@@ -311,7 +313,9 @@ class TestController extends Controller
                 break;
             }
             $http = new Client(['verify' => false]);
+
             $link = 'https://icredit-crm.kz/api/site/bmg_newStep2.php';
+
             $response = $http->get($link, [
                 'query' => [
                     'leadID' => $user->leadID,
@@ -386,7 +390,9 @@ class TestController extends Controller
                 break;
             }
             $http = new Client(['verify' => false]);
+
             $link = 'https://icredit-crm.kz/api/site/bmg_newStep3.php';
+
             $response = $http->get($link, [
                 'query' => [
                     'leadID' => $user->leadID,
