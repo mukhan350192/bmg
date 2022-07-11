@@ -116,6 +116,9 @@ class BioController extends Controller
         $endGiven = $request->input('endGiven');
         $email = $request->input('email');
         $source = $request->input('source');
+        $utm_medium = $request->input('utm_medium');
+        $utm_campaign = $request->input('utm_campaign');
+        $utm_content = $request->input('utm_content');
         $result['success'] = false;
         do {
             if (!$code) {
@@ -235,6 +238,9 @@ class BioController extends Controller
                     'ID' => time(),
                     'source' => $source,
                     'bmg' => $bmg,
+                    'utm_medium' => $utm_medium,
+                    'utm_campaign' => $utm_campaign,
+                    'utm_content' => $utm_content,
                 ],
             ]);
             $response = $response->getBody()->getContents();
