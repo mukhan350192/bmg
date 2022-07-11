@@ -100,6 +100,10 @@ class UserController extends Controller
         $endGiven = $request->input('endGiven');
         $email = $request->input('email');
         $source = $request->input('source');
+        $utm_medium = $request->input('utm_medium');
+        $utm_campaign = $request->input('utm_campaign');
+        $utm_content = $request->input('utm_content');
+
         $result['success'] = false;
         do {
             if (!$code) {
@@ -214,7 +218,9 @@ class UserController extends Controller
                     'email' => $email,
                     'code' => $code,
                     'ID' => time(),
-                    'source' => $source,
+                    'utm_medium' => $utm_medium,
+                    'utm_campaign' => $utm_campaign,
+                    'utm_content' => $utm_content,
                 ],
             ]);
             $response = $response->getBody()->getContents();
