@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -22,8 +23,12 @@ class AdminController extends Controller
                 $result['message'] = 'Не передан пароль';
                 break;
             }
-            $admin = DB::table('super_user')->where('login', $login)->where('password',$password)->first();
+            $admin = DB::table('super_user')->where('login', $login)->first();
             if (!$admin){
+                $result['message'] = 'Логин или пароль неправильный';
+                break;
+            }
+            if (!Hash::check($password,$admin->password)){
                 $result['message'] = 'Логин или пароль неправильный';
                 break;
             }
