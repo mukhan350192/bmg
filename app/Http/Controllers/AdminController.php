@@ -63,6 +63,7 @@ class AdminController extends Controller
                 $result['message'] = 'Не найдено пользователей';
                 break;
             }
+            $result['id'] = $user->id;
             $result['iin'] = $iin;
             $result['success'] = true;
             $result['fio'] = $user->name." ".$user->surname." ".$user->fatherName;
