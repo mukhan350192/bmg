@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BioController;
 use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\PasswordController;
@@ -71,3 +72,7 @@ Route::prefix('test')->group(function (){
 Route::get('/scoringResult',[ScoringController::class,'scoringResult']);
 Route::get('/getScore',[ScoringController::class,'getScore']);
 Route::get('/getDocumentData',[ScoringController::class,'getDocumentData']);
+//admin
+Route::post('/authAdmin',[AdminController::class,'authAdmin']);
+Route::post('/searchUser',[AdminController::class,'searchUser']);
+Route::post('/deleteUser',[AdminController::class,'deleteUser']);
