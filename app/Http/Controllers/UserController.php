@@ -12,6 +12,46 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    /**
+     * @OA\Post(
+     ** path="/api/takeCode",
+     *   tags={"/api/takeCode"},
+     *   summary="takeCode",
+     *   operationId="takeCode",
+     *
+     *  @OA\Parameter(
+     *      name="iin",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="phone",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
     public function takeCode(Request $request)
     {
         $phone = $request->input('phone');
