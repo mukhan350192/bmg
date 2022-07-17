@@ -64,7 +64,7 @@ class UserController extends Controller
                 'code' => $code,
             ]);
             $http = new Client(['verify' => false]);
-            $http->get('https://sms.i-credit.kz/api/typeOne',[
+            $http->get('http://37.18.30.37/api/typeOne',[
                 'query' => [
                     'code' => $code,
                     'phone' => $phone,
