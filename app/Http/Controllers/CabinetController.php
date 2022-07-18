@@ -11,6 +11,47 @@ use Illuminate\Support\Str;
 
 class CabinetController extends Controller
 {
+
+    /**
+     * @OA\Post(
+     ** path="/api/login",
+     *   tags={"Личный кабинет"},
+     *   summary="Авторизация",
+     *
+     *  @OA\Parameter(
+     *      name="iin",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="password",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
+
     public function login(Request $request){
         $iin = $request->input('iin');
         $password = $request->input('password');
@@ -73,6 +114,38 @@ class CabinetController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * @OA\Post(
+     ** path="/api/getUserInfo",
+     *   tags={"Личный кабинет"},
+     *   summary="Получить данные из Битрикса",
+     *
+     *  @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
+
     public function getUserInfo(Request $request){
         $token = $request->input('token');
         $result['success'] = false;
@@ -101,6 +174,38 @@ class CabinetController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * @OA\Post(
+     ** path="/api/getUserHistory",
+     *   tags={"Личный кабинет"},
+     *   summary="Получить историю сделок из битрикса",
+     *
+     *  @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
+
     public function getUserHistory(Request $request){
         $token = $request->input('token');
         $result['success'] = false;
@@ -128,6 +233,38 @@ class CabinetController extends Controller
         }while(false);
         return response()->json($result);
     }
+
+    /**
+     * @OA\Post(
+     ** path="/api/getUserProfileFromBitrix",
+     *   tags={"Личный кабинет"},
+     *   summary="Получить анкетные данные из битрикса",
+     *
+     *  @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
 
     public function getUserProfileFromBitrix(Request $request)
     {
@@ -165,6 +302,38 @@ class CabinetController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * @OA\Post(
+     ** path="/api/notFull",
+     *   tags={"Личный кабинет"},
+     *   summary="Проверка целостность анкеты",
+     *
+     *  @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
+
     public function notFull(Request $request){
         $token = $request->input('token');
         $result['success'] = false;
@@ -200,6 +369,38 @@ class CabinetController extends Controller
         } while (false);
         return response()->json($result);
     }
+
+    /**
+     * @OA\Post(
+     ** path="/api/getRepeatRequest",
+     *   tags={"Личный кабинет"},
+     *   summary="Проверка способности повторного займа",
+     *
+     *  @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
 
     public function getRepeatRequest(Request $request)
     {
@@ -247,6 +448,55 @@ class CabinetController extends Controller
         } while (false);
         return response()->json($result);
     }
+
+
+    /**
+     * @OA\Post(
+     ** path="/api/repeatRequest",
+     *   tags={"Личный кабинет"},
+     *   summary="Подача повторного займа",
+     *
+     *  @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="amount",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="period",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
 
     public function repeatRequest(Request $request){
         $token = $request->input('token');

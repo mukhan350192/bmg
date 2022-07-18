@@ -15,7 +15,7 @@ class UserController extends Controller
     /**
      * @OA\Post(
      ** path="/api/takeCode",
-     *   tags={"/api/takeCode"},
+     *   tags={"Регистрация"},
      *   summary="takeCode",
      *   operationId="takeCode",
      *
@@ -79,6 +79,47 @@ class UserController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * @OA\Post(
+     ** path="/api/sendSMS",
+     *   tags={"Регистрация"},
+     *   summary="sendSMS",
+     *   operationId="sendSMS",
+     *
+     *  @OA\Parameter(
+     *      name="phone",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="source",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
+
     public function sendSMS(Request $request)
     {
         $phone = $request->input('phone');
@@ -104,7 +145,7 @@ class UserController extends Controller
                 'code' => $code,
             ]);
             $http = new Client(['verify' => false]);
-            $http->get('http://37.18.30.37/api/typeOne',[
+            $http->get('http://37.18.30.37/api/typeOne', [
                 'query' => [
                     'code' => $code,
                     'phone' => $phone,
@@ -123,6 +164,174 @@ class UserController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * @OA\Post(
+     ** path="/api/confirmSMS",
+     *   tags={"Регистрация"},
+     *   summary="confirmSMS",
+     *   operationId="confirmSMS",
+     *
+     *  @OA\Parameter(
+     *      name="code",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="name",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="surname",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="fatherName",
+     *      in="query",
+     *      required=false,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="iin",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="password",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="amount",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="period",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="phone",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="docNumber",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="docIssue",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="startGiven",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="endGiven",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="email",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="source",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="utm_medium",
+     *      in="query",
+     *      required=false,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="utm_campaign",
+     *      in="query",
+     *      required=false,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="utm_content",
+     *      in="query",
+     *      required=false,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
     public function confirmSMS(Request $request)
     {
         $code = $request->input('code');
@@ -154,9 +363,9 @@ class UserController extends Controller
                 $result['message'] = 'Не передан телефон';
                 break;
             }
-            if (strlen($code) == 6){
+            if (strlen($code) == 6) {
                 continue;
-            }else{
+            } else {
                 $findCode = DB::table('sms_code')->where('code', $code)->where('phone', $phone)->first();
                 if (!$findCode) {
                     $result['message'] = 'Не совпадает код';
@@ -213,7 +422,7 @@ class UserController extends Controller
                 $result['message'] = 'Не передан почта';
                 break;
             }
-            if (!$source){
+            if (!$source) {
                 $result['message'] = 'Не передан источник';
                 break;
             }
@@ -266,7 +475,7 @@ class UserController extends Controller
             $response = $response->getBody()->getContents();
             $response = json_decode($response, true);
             $leadID = $response['leadID'];
-            User::where('id',$newUser->id)->update(['leadID'=>$leadID]);
+            User::where('id', $newUser->id)->update(['leadID' => $leadID]);
             $result['success'] = true;
             $result['leadID'] = $leadID;
             $result['token'] = $token;
@@ -274,6 +483,111 @@ class UserController extends Controller
         return response()->json($result);
     }
 
+
+    /**
+     * @OA\Post(
+     ** path="/api/secondStep",
+     *   tags={"Регистрация"},
+     *   summary="Второй этап",
+     *
+     *
+     *  @OA\Parameter(
+     *      name="sphere",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="workPlace",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="position",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="lastSix",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="deposit",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="fioContact",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="phoneContact",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="relativeContact",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="source",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
     public function secondStep(Request $request)
     {
         $sphere = $request->input('sphere');
@@ -306,7 +620,7 @@ class UserController extends Controller
                 $result['message'] = 'Не передан телефон контакта';
                 break;
             }
-            if (!$relativeContact){
+            if (!$relativeContact) {
                 $result['message'] = 'Не передан кем приходиться';
                 break;
             }
@@ -360,6 +674,95 @@ class UserController extends Controller
         } while (false);
         return response()->json($result);
     }
+
+
+    /**
+     * @OA\Post(
+     ** path="/api/thirdStep",
+     *   tags={"Регистрация"},
+     *   summary="Третий этап",
+     *
+     *  @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="iban",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="cardNumber",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="cardIssue",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="cardName",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="source",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="clickID",
+     *      in="query",
+     *      required=false,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="web_id",
+     *      in="query",
+     *      required=false,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
 
     public function thirdStep(Request $request)
     {
@@ -429,7 +832,7 @@ class UserController extends Controller
             ]);
             DB::commit();
             $ID = strtotime($user->created_at);
-            $this->cpaPostback($source,$clickID,$ID);
+            $this->cpaPostback($source, $clickID, $ID);
             $result['success'] = true;
         } while (false);
         return response()->json($result);
@@ -458,9 +861,10 @@ class UserController extends Controller
         echo $gender . " " . $birthday;
     }
 
-    public function testData(Request $request){
+    public function testData(Request $request)
+    {
         $r = $request->all();
-        for ($i = 0; $i<count($r);$i++){
+        for ($i = 0; $i < count($r); $i++) {
             $array[] = [
                 'iin' => $r[$i]['iin'],
                 'phone' => $r[$i]['phone'],
@@ -475,14 +879,15 @@ class UserController extends Controller
 
     }
 
-    public function cpaPostback($cpaSource, $clickID, $requestNumber){
-        if ($cpaSource == 'leadgid'){
+    public function cpaPostback($cpaSource, $clickID, $requestNumber)
+    {
+        if ($cpaSource == 'leadgid') {
             $url = "http://go.leadgid.ru/aff_lsr?offer_id=5062&adv_sub=$requestNumber&transaction_id=$clickID";
             $http = new Client(['verify' => false]);
-            try{
+            try {
                 $response = $http->get($url);
 
-            }catch (BadResponseException $e){
+            } catch (BadResponseException $e) {
                 info($e);
             }
         }
@@ -516,7 +921,7 @@ class UserController extends Controller
                 $result['message'] = 'Не передан телефон';
                 break;
             }
-            if (strlen($code) == 4){
+            if (strlen($code) == 4) {
                 $findCode = DB::table('sms_code')->where('code', $code)->where('phone', $phone)->first();
                 if (!$findCode) {
                     $result['message'] = 'Не совпадает код';
@@ -573,7 +978,7 @@ class UserController extends Controller
                 $result['message'] = 'Не передан почта';
                 break;
             }
-            if (!$source){
+            if (!$source) {
                 $result['message'] = 'Не передан источник';
                 break;
             }
@@ -624,7 +1029,7 @@ class UserController extends Controller
             $response = $response->getBody()->getContents();
             $response = json_decode($response, true);
             $leadID = $response['leadID'];
-            User::where('id',$newUser->id)->update(['leadID'=>$leadID]);
+            User::where('id', $newUser->id)->update(['leadID' => $leadID]);
             $result['success'] = true;
             $result['leadID'] = $leadID;
             $result['token'] = $token;

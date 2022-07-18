@@ -9,6 +9,45 @@ use Illuminate\Support\Facades\DB;
 
 class PasswordController extends Controller
 {
+    /**
+     * @OA\Get(
+     ** path="/api/checkPerson",
+     *   tags={"Восстановление пароля"},
+     *   summary="Проверка пользователя",
+     *
+     *  @OA\Parameter(
+     *      name="iin",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="phone",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
     public function checkPerson(Request $request){
         $iin = $request->input('iin');
         $phone = $request->input('phone');
@@ -55,6 +94,46 @@ class PasswordController extends Controller
         return response()->json($result);
     }
 
+
+    /**
+     * @OA\Get(
+     ** path="/api/checkUrl",
+     *   tags={"Восстановление пароля"},
+     *   summary="Проверка короткий ссылки",
+     *
+     *  @OA\Parameter(
+     *      name="iin",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="phone",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
     public function checkUrl(Request $request){
         $iin = $request->input('iin');
         $phone = $request->input('phone');
@@ -83,6 +162,54 @@ class PasswordController extends Controller
         return response()->json($result);
     }
 
+
+    /**
+     * @OA\Get(
+     ** path="/api/resetPassword",
+     *   tags={"Восстановление пароля"},
+     *   summary="Изменение пароля",
+     *
+     *  @OA\Parameter(
+     *      name="iin",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="password",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="id",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
     public function resetPassword(Request $request)
     {
         $iin = $request->input('iin');

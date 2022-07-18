@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class ScoringController extends Controller
 {
+
     public function scoringResult(Request $request)
     {
         $leadID = $request->input('leadID');
@@ -78,6 +79,38 @@ class ScoringController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * @OA\Get(
+     ** path="/api/getScore",
+     *   tags={"Результат скоринга после третьего этапа"},
+     *   summary="Получить результаты скоринга",
+     *
+     *  @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
+
     public function getScore(Request $request){
         $token = $request->input('token');
         $result['success'] = false;
@@ -119,6 +152,38 @@ class ScoringController extends Controller
         return response()->json($result);
     }
 
+
+    /**
+     * @OA\Get(
+     ** path="/api/getDocumentData",
+     *   tags={"Результат скоринга после третьего этапа"},
+     *   summary="Получение документные данные после третьего этапа",
+     *
+     *  @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
     public function getDocumentData(Request $request){
         $token = $request->input('token');
         $result['success'] = false;

@@ -11,6 +11,46 @@ use Illuminate\Support\Facades\Validator;
 
 class PayboxController extends Controller
 {
+    /**
+     * @OA\Post(
+     ** path="/api/payment",
+     *   tags={"PayBox"},
+     *   summary="Генерация ссылки для оплаты",
+     *
+     *  @OA\Parameter(
+     *      name="iin",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="amount",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
+
     public function payment(Request $request){
         $rules = array(
             'amount' => 'required',

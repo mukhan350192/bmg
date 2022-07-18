@@ -78,6 +78,47 @@ class UrlController extends Controller
         return response()->json($result);
     }
 
+
+    /**
+     * @OA\Get(
+     ** path="/api/newGetData",
+     *   tags={"Подпись по СМС"},
+     *   summary="Получение данные при подписание",
+     *
+     *  @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="leadID",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
+
     public function newGetData(Request $request)
     {
         $token = $request->input('token');
@@ -144,6 +185,46 @@ class UrlController extends Controller
 
         return response()->json($result);
     }
+
+    /**
+     * @OA\Get(
+     ** path="/api/agreementNew",
+     *   tags={"Подпись по СМС"},
+     *   summary="Подписание документов через СМС",
+     *
+     *  @OA\Parameter(
+     *      name="leadID",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="sign",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
 
     public function agreementNew(Request $request)
     {
@@ -223,6 +304,38 @@ class UrlController extends Controller
 
     }
 
+    /**
+     * @OA\Get(
+     ** path="/api/getData",
+     *   tags={"Подпись по СМС"},
+     *   summary="Получение данные для подписание ресструктризацию",
+     *
+     *  @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
+
     public function getData(Request $request)
     {
         $token = $request->input('token');
@@ -266,6 +379,46 @@ class UrlController extends Controller
         } while (false);
         return response()->json($result);
     }
+
+    /**
+     * @OA\Get(
+     ** path="/api/agreement",
+     *   tags={"Подпись по СМС"},
+     *   summary="Подписание ресструктризацию по СМС",
+     *
+     *  @OA\Parameter(
+     *      name="id",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="sign",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
 
     public function agreement(Request $request)
     {

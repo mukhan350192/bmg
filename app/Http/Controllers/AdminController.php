@@ -10,6 +10,46 @@ use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
+    /**
+     * @OA\Post(
+     ** path="/api/authAdmin",
+     *   tags={"Админка"},
+     *   summary="Авторизация админа",
+     *
+     *  @OA\Parameter(
+     *      name="login",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="password",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
+
     public function authAdmin(Request $request){
         $login = $request->input('login');
         $password = $request->input('password');
@@ -39,6 +79,46 @@ class AdminController extends Controller
         }while(false);
         return response()->json($result);
     }
+
+    /**
+     * @OA\Post(
+     ** path="/api/searchUser",
+     *   tags={"Админка"},
+     *   summary="Поиск пользователя",
+     *
+     *  @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="iin",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
 
     public function searchUser(Request $request){
         $token = $request->input('token');
@@ -72,6 +152,45 @@ class AdminController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * @OA\Post(
+     ** path="/api/deleteUser",
+     *   tags={"Админка"},
+     *   summary="Удаление пользователя",
+     *
+     *  @OA\Parameter(
+     *      name="user_id",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="token",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="true/false",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     **/
     public function deleteUser(Request $request){
         $user_id = $request->input('user_id');
         $token = $request->input('token');
