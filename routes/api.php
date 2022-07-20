@@ -68,6 +68,7 @@ Route::prefix('test')->group(function (){
     Route::post('/confirmSMS',[BioController::class,'confirmSMS']);
     Route::post('/secondStep',[BioController::class,'secondStep']);
     Route::post('/thirdStep',[BioController::class,'thirdStep']);
+    Route::post('/deleteUser',[BioController::class,'deleteUser']);
 });
 //Scoring
 Route::get('/scoringResult',[ScoringController::class,'scoringResult']);
