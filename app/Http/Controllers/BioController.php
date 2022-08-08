@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -413,7 +414,7 @@ class BioController extends Controller
             ]);
             DB::commit();
             $ID = strtotime($user->created_at);
-            //$this->cpaPostback($source,$clickID,$ID);
+            $this->cpaPostback($source,$clickID,$ID,$user->leadID);
             $result['success'] = true;
         } while (false);
         return response()->json($result);
@@ -460,5 +461,30 @@ class BioController extends Controller
         }
         $ids = substr($ids,0,-1);
         print_r($ids);
+    }
+
+    public function cpaPostback($cpaSource, $clickID, $requestNumber, $leadID)
+    {
+        if ($cpaSource == 'leadgid') {
+            $url = "http://go.leadgid.ru/aff_lsr?offer_id=5062&adv_sub=$requestNumber&transaction_id=$clickID";
+            $http = new Client(['verify' => false]);
+            try {
+                $response = $http->get($url);
+
+            } catch (BadResponseException $e) {
+                info($e);
+            }
+        }
+        if ($cpaSource == 'sales_doubler'){
+            $url = "https://rdr.myintsd.com/in/postback/4649/$clickID?trans_id=$leadID&token=YS50b2xlZ2Vub3ZhQGktY3JlZGl0Lmt6";
+            $http = new Client(['verify' => false]);
+            try {
+                $response = $http->get($url);
+
+            } catch (BadResponseException $e) {
+                info($e);
+            }
+        }
+
     }
 }
