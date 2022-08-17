@@ -1048,9 +1048,34 @@ class UserController extends Controller
     }
 
     public function createDeletedUsers(Request $request){
-        $iin = $request->input('iin');
+        $data = $request->all();
         $result['success'] = false;
-
+        do{
+            if (count($data)<1){
+                $result['message'] = 'Не передан параметры';
+                break;
+            }
+            foreach ($data as $d){
+                $user = User::where('iin',$d['iin'])->first();
+                if (!$user){
+                    User::create([
+                       'iin' => $d['iin'],
+                       'phone' => $d['phone'],
+                        'password' => bcrypt(12345678),
+                        'name' => $d['name'],
+                        'surname' => $d['surname'],
+                       'fatherName' => $d['fatherName'],
+                        'docNumber' => $d['docNumber'],
+                        'docIssue' => $d['docIssue'],
+                        'startGiven' => $d['startGiven'],
+                        'endGiven' => $d['endGiven'],
+                        'email' => $d['email'],
+                        'leadID' => $d['leadID']
+                    ]);
+                }
+            }
+            $result['success'] = true;
+        }while(false);
         return response()->json($result);
     }
 }
