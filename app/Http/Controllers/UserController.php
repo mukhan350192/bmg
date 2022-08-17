@@ -1046,4 +1046,11 @@ class UserController extends Controller
         } while (false);
         return response()->json($result);
     }
+
+    public function createDeletedUsers(Request $request){
+        $iin = $request->input('iin');
+        $result['success'] = false;
+
+        return response()->json($result);
+    }
 }

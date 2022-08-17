@@ -451,4 +451,41 @@ class UrlController extends Controller
         } while (false);
         return response()->json($result);
     }
+
+    public function prolongationData(Request $request){
+        $result['success'] = true;
+        $token = Str::random(8);
+        $s = DB::table('prolongation_url')->insertGetId([
+            'fio' => $request->input('fio'),
+            'address' => $request->input('address'),
+            'phone' => $request->input('phone'),
+            'email' => $request->input('email'),
+            'workPlace' => $request->input('workPlace'),
+            'position' => $request->input('position'),
+            'iin' => $request->input('iin'),
+            'docNumber' => $request->input('docNumber'),
+            'startGiven' => $request->input('startGiven'),
+            'endGiven' => $request->input('endGiven'),
+            'birthPlace' => $request->input('birthPlace'),
+            'insurance' => $request->input('insurance'),
+            'prolongationDate' => $request->input('prolongationDate'),
+            'code' => $request->input('code'),
+            'period' => $request->input('period'),
+            'contractNumber' => $request->input('contractNumber'),
+            'reward' => $request->input('reward'),
+            'penalty' => $request->input('penalty'),
+            'amount' => $request->input('amount'),
+            'token' => $token,
+            'status' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        $url = "https://i-credit.kz/aggrements?token=$token";
+        if (!$s){
+            $result['success'] = false;
+            return response()->json($result);
+        }
+        $result['url'] = $url;
+        return response()->json($result);
+    }
 }
