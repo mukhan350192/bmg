@@ -40,6 +40,7 @@ Route::post('/newShortUrl',[UrlController::class,'getShortUrl']);
 Route::get('/newGetData',[UrlController::class,'newGetData']);
 Route::get('/agreementNew',[UrlController::class,'agreementNew']);
 Route::get('/prolongation',[UrlController::class,'prolongation']);
+Route::get('/prolongationData',[UrlController::class,'prolongationData']);
 Route::get('/getData',[UrlController::class,'getData']);
 Route::get('/agreement',[UrlController::class,'agreement']);
 
