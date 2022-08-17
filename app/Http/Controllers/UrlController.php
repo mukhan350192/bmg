@@ -488,4 +488,19 @@ class UrlController extends Controller
         $result['url'] = $url;
         return response()->json($result);
     }
+
+    public function getProlongationData(Request $request){
+        $token = $request->input('token');
+        $result['success'] = false;
+        do{
+            $data = DB::table('prolongation_url')->where('token',$token)->where('status',1)->first();
+            if (!$data){
+                $result['message'] = 'Не найден документов';
+                break;
+            }
+            $result['data'] = $data;
+            $result['success'] = true;
+        }while(false);
+        return response()->json($result);
+    }
 }
