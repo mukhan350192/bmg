@@ -897,6 +897,7 @@ class UserController extends Controller
             try {
                 $response = $http->get($url);
                 $response = json_encode($response->getBody()->getContents());
+                info('sales_doubler '.$response);
             } catch (BadResponseException $e) {
                 info($e);
             }
