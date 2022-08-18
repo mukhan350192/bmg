@@ -896,7 +896,7 @@ class UserController extends Controller
             $http = new Client(['verify' => false]);
             try {
                 $response = $http->get($url);
-
+                $response = json_encode($response->getBody()->getContents());
             } catch (BadResponseException $e) {
                 info($e);
             }
