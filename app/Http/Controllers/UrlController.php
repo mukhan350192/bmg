@@ -434,7 +434,7 @@ class UrlController extends Controller
                 $result['message'] = 'Не передан подпись';
                 break;
             }
-            $data = DB::table('prolongation')->where('dealID', $dealID)->first();
+            $data = DB::table('prolongation_url')->where('dealID', $dealID)->first();
             if (!$data) {
                 $result['message'] = 'Не найден документ';
                 break;
