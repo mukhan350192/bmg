@@ -439,8 +439,9 @@ class UrlController extends Controller
                 $result['message'] = 'Не найден документ';
                 break;
             }
+            $contractNumber = $data->contractNumber;
             DB::table('prolongation_url')->where('id', $dealID)->update(['status' => 2]);
-            $url = "https://icredit-crm.kz/api/webhock/sign.php?sign=$sign&dealID=$dealID";
+            $url = "https://icredit-crm.kz/api/webhock/sign.php?sign=$sign&dealID=$contractNumber";
             $http = new Client(['verify' => false]);
             try {
                 $http->get($url);
