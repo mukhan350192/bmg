@@ -434,12 +434,12 @@ class UrlController extends Controller
                 $result['message'] = 'Не передан подпись';
                 break;
             }
-            $data = DB::table('prolongation_url')->where('dealID', $dealID)->first();
+            $data = DB::table('prolongation_url')->where('id', $dealID)->first();
             if (!$data) {
                 $result['message'] = 'Не найден документ';
                 break;
             }
-            DB::table('prolongation')->where('dealID', $dealID)->update(['status' => 2]);
+            DB::table('prolongation_url')->where('id', $dealID)->update(['status' => 2]);
             $url = "https://icredit-crm.kz/api/webhock/sign.php?sign=$sign&dealID=$dealID";
             $http = new Client(['verify' => false]);
             try {
