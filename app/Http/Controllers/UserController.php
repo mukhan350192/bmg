@@ -1057,21 +1057,21 @@ class UserController extends Controller
                 break;
             }
             foreach ($data as $d){
-                $user = User::where('iin',$d['iin'])->first();
+                $user = User::where('iin',$d->iin)->first();
                 if (!$user){
                     User::create([
-                       'iin' => $d['iin'],
-                       'phone' => $d['phone'],
+                       'iin' => $d->iin,
+                       'phone' => $d->phone,
                         'password' => bcrypt(12345678),
-                        'name' => $d['name'],
-                        'surname' => $d['surname'],
-                       'fatherName' => $d['fatherName'],
-                        'docNumber' => $d['docNumber'],
-                        'docIssue' => $d['docIssue'],
-                        'startGiven' => $d['startGiven'],
-                        'endGiven' => $d['endGiven'],
-                        'email' => $d['email'],
-                        'leadID' => $d['leadID']
+                        'name' => $d->name,
+                        'surname' => $d->surname,
+                       'fatherName' => $d->fatherName,
+                        'docNumber' => $d->docNumber,
+                        'docIssue' => $d->docIssue,
+                        'startGiven' => $d->startGiven,
+                        'endGiven' => $d->endGiven,
+                        'email' => $d->email,
+                        'leadID' => $d->leadID
                     ]);
                 }
             }
