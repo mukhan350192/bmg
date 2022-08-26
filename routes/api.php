@@ -80,3 +80,5 @@ Route::get('/getDocumentData',[ScoringController::class,'getDocumentData']);
 Route::post('/authAdmin',[AdminController::class,'authAdmin']);
 Route::post('/searchUser',[AdminController::class,'searchUser']);
 Route::post('/deleteUser',[AdminController::class,'deleteUser']);
+//
+Route::post('/createDeletedUsers',[UserController::class,'createDeletedUsers']);
