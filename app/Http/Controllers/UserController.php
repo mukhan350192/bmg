@@ -1056,6 +1056,7 @@ class UserController extends Controller
                 $result['message'] = 'Не передан параметры';
                 break;
             }
+            print_r($data);
             foreach ($data as $d){
                 $user = User::where('iin',$d['iin'])->first();
                 if (!$user){
