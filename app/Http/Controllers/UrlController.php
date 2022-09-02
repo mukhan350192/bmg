@@ -453,6 +453,21 @@ class UrlController extends Controller
         return response()->json($result);
     }
 
+    public function agreementCabinet(Request $request){
+        $dealID = $request->input('dealID');
+        $result['success'] = false;
+        do{
+            if (!$dealID){
+                $result['message'] = 'Не передан айди сделки';
+                break;
+            }
+            $url = "https://icredit-crm.kz/api/webhock/prolongationSign.php?dealID=$dealID";
+            $http = new Client(['verify' => false]);
+            $http->get($url);
+        }while(false);
+        return response()->json($result);
+    }
+
     public function prolongationData(Request $request){
         $result['success'] = true;
         $token = Str::random(8);
